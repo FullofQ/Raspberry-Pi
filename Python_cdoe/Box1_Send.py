@@ -35,7 +35,7 @@ result4 = 0
 result5 = 0
 result6 = 0
 
-def Firebase():
+def GetFirebase():
     
     result1 = firebase.get('/USER/'+str,'Y')
     result2 = firebase.get('/USER/'+str,'M')
@@ -45,17 +45,32 @@ def Firebase():
     result6 = firebase.get('/USER/'+str,'Min')
 
 def TimeCompetition():
-    
-    while cmp(result1,year) != 0 and cmp(result2,month) != 0and  cmp(result3,day) != 0 and cmp(result5,hour) != 0 and cmp(result6,minute) != 0:
-	
-            Firebase()
-            amountofmedicine = hex(result4)
-            print "Fail"
-            time.sleep(1)
 
-    ser.write(amountofmedicine)
-    time.sleep(1)
+	while cmp(result1,year) != 0 and cmp(result2,month) != 0and  cmp(result3,day) != 0 and cmp(result5,hour) != 0 and cmp(result6,minute) != 0:
+	
+		GetFirebase()
+		amountofmedicine = hex(result4)
+			
+		print "Fail"
+		time.sleep(1)
+
+	result6_value = int(result6)
+	print result6_value
+	ser.write(b"\x01")
+	time.sleep(1)
+
+		
+"""
+x=ser.read(100)
+while x != 1:
+	x=ser.read(100)
+	print x
+	time.sleep(1)
     
+	#在num欄位傳2
+	result = firebase.patch('/USER/'+str,{'num':2})
+"""
+	
 while 1:
     
     TimeCompetition()
